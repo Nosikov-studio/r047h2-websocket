@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const ws =new WebSocket('ws://85.28.47.165:8888');
+            // const ws =new WebSocket('ws://localhost:8888');
+            ws.onopen = () => {
+                console.log('Connected to the WebSocket server');
+                ws.send(JSON.stringify({event: 'greeting', message: 'Hello Server!'}));
+            };
+
+            ws.onmessage = (event) => {
+                try {
+                    console.log("Event ->", event)
+                    const data = JSON.parse(event.data);
+                    const md=document.getElementById('messages');
+                    const me=document.createElement('div');
+                    me.textContent =`${data.event}: ${data.message}`;
+                    md.appendChild(me);
+                } catch (error) { console.log("Error" + error)}
+            };
+            ws.onclose = () => {
+                console.log('Disconnected from the Websocket server');
+            };
+            ws.onerror =(error) => {
+                console.error('Websocket error:', error);
+            };
+
+            document.getElementById('sendButton').addEventListener('click', ()=> {
+                const messageInput =document.getElementById('messageInput').value;
+                ws.send(JSON.stringify({ event: 'greeting', message: messageInput}));
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <h1> WebSocket Client</h1>
+    <div> 
+        <input type="text" id="messageInput" placeholder="Type a message">
+        <button id="sendButton"> Send</button>
+    </div>
+    <div id="messages"></div>
+</body>
+</html>
