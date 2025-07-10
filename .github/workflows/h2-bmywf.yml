@@ -47,8 +47,8 @@ jobs:
            cp -r /var/www/ws/backfromgithub/* /var/www/ws/
            cd /var/www/ws/
            
-           pm2 restart backend --update-env 
-           pm2 reload backend
+           pm2 restart websocket --update-env 
+           pm2 reload websocket
            
            
           # pm2 describe backend || pm2 start index.js --name backend --watch 
