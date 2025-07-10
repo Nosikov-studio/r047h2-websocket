@@ -1,4 +1,4 @@
-name: MBl
+name: MBh2
 on: 
   #push
   workflow_dispatch   
@@ -7,8 +7,8 @@ on:
 env:
   SERVER_HOST: '85.28.47.165'
   SERVER_USER: root
-  SERVER_PATH: /var/www/trur/backfromgithub
-# Бэкэнд  находится в папке /var/www/trur/
+  SERVER_PATH: /var/www/ws/backfromgithub
+# Бэкэнд  находится в папке /var/www/ws/
 
 jobs:
 
@@ -41,11 +41,11 @@ jobs:
         username: ${{ env.SERVER_USER }}
         key: ${{ secrets.PKEY }}
         script: |
-           rm -rf /var/www/trur/backfromgithub/.git/
-           rm -rf /var/www/trur/backfromgithub/.github/
-           rm  /var/www/trur/backfromgithub/.gitignore
-           cp -r /var/www/trur/backfromgithub/* /var/www/trur/
-           cd /var/www/trur/
+           rm -rf /var/www/ws/backfromgithub/.git/
+           rm -rf /var/www/ws/backfromgithub/.github/
+           rm  /var/www/ws/backfromgithub/.gitignore
+           cp -r /var/www/ws/backfromgithub/* /var/www/ws/
+           cd /var/www/ws/
            
            pm2 restart backend --update-env 
            pm2 reload backend
